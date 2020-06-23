@@ -1,9 +1,13 @@
 const socket = io();
 
-socket.on("countUpdated", (count) => {
-    console.log("count has been updated: ", count);
+socket.on("newChat", (message) => {
+    console.log(message);
 });
 
-document.querySelector("#increment").addEventListener("click", () => {
-    socket.emit("incrementCount");
+const chatForm = document.querySelector("#chat-form");
+
+chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const message = e.target.elements.chat.value;
+    socket.emit("sendChat", message);
 });
