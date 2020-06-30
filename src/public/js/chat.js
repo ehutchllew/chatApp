@@ -9,7 +9,9 @@ const chatForm = document.querySelector("#chat-form");
 chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const message = e.target.elements.chat.value;
-    socket.emit("sendMessage", message);
+    socket.emit("sendMessage", message, (ack) => {
+        console.log(ack);
+    });
 });
 
 const shareLocation = document.querySelector("#send-location");

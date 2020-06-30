@@ -16,8 +16,11 @@ app.disable("x-powered-by");
 io.on("connection", (socket) => {
     console.log("New WebSocket connection");
     socket.broadcast.emit("message", "A new user has joined!");
-    socket.on("sendMessage", (message: string) => {
+    socket.on("sendMessage", (message: string, callback) => {
         io.emit("message", message);
+        if (callback) {
+            callback("Message Received");
+        }
     });
 
     socket.on("sendLocation", (coords) => {
